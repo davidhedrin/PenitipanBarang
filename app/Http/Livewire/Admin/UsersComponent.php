@@ -101,8 +101,10 @@ class UsersComponent extends Component
 
         try{
             $users = User::paginate(10);
+            $usrCard = User::paginate(8);
             $result = [
                 'users' => $users,
+                'usrCard' => $usrCard
             ];
         }catch(Exception $e){
             $error_msg = $e->getMessage();

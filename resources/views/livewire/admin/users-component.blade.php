@@ -1,15 +1,38 @@
 <div>
+    <style>
+        .length-name-card {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            max-width: 160px;
+        }
+
+        .text-card-user{
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 5px;
+            padding: 2px 5px;
+        }
+    </style>
     <div class="card">
-        <div class="card-body pb-0 d-flex justify-content-between">
-            <div>
-                <h4>Home Slider</h4>
-            </div>
-            <div>
-                <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
-                    data-bs-target="#modalAddToDb">New Slider</button>
-            </div>
-        </div>
         <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-md-4">
+                    <h4>User Management</h4>
+                </div>
+                <div class="col-md-8 d-flex justify-content-end">
+                    <div>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                    <span style="padding-right: 15px"></span>
+                    <div>
+                        <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal"
+                            data-bs-target="#modalAddToDb" style="padding: 8px">New User</button>
+                    </div>
+                </div>
+            </div>
             @if (Session::has('msgExcError'))
                 <div class="bs-toast toast fade show bg-warning alertMsg" role="alert" aria-live="assertive"
                     aria-atomic="true">
@@ -56,8 +79,7 @@
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ !empty($user->no_phone) ? $user->no_phone : '-' }}</td>
-                                <td>{{ empty($user->gander) ? '-' : ($user->gander == '1' ? 'Laki-laki' : 'Perempuan') }}
-                                </td>
+                                <td>{{ empty($user->gander) ? '-' : ($user->gander == '1' ? 'Laki-laki' : 'Perempuan') }}</td>
                                 <td style="font-weight: {{ $user->user_type == 'ADM' ? 'bold' : '' }}">
                                     {{ $user->user_type == 'ADM' ? 'Admin' : 'User' }}</td>
                                 <td>
@@ -70,7 +92,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="javascript:void(0)" class="pr-2" wire:click.prevent="updateDataUserModel({{ $user->id }})"
+                                    <a href="javascript:void(0)" class="pr-2"
+                                        wire:click.prevent="updateDataUserModel({{ $user->id }})"
                                         data-bs-toggle="modal" data-bs-target="#modalEditUser"><i class='bx bxs-edit'
                                             style="color: rgb(255, 170, 0)"></i></a>
                                     <a href="javascript:void(0)"
@@ -104,6 +127,76 @@
             </div>
         </div>
     </div>
+    <div class="card mt-4">
+        <div class="card-body">
+            <nav class="navbar navbar-example navbar-expand-lg bg-light">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbar-ex-4">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbar-ex-4">
+                        <div class="navbar-nav me-auto">
+                            <a class="nav-item nav-link active" href="javascript:void(0)">Semua</a>
+                            <a class="nav-item nav-link" href="javascript:void(0)">Admin</a>
+                            <a class="nav-item nav-link" href="javascript:void(0)">Kurir</a>
+                            <a class="nav-item nav-link" href="javascript:void(0)">User</a>
+                        </div>
+
+                        <div class="d-flex">
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="tf-icons bx bx-search"></i></span>
+                                <input type="text" class="form-control" placeholder="Search...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="row">
+                @forelse ($usrCard as $user)
+                    <div class="col-md-3" style="padding: 12px">
+                        <div class="card bg-dark border-0 text-white">
+                            <img class="card-img" src="{{ empty($user->gander) ? asset('assets/img/avatars/cus-male.png') : ($user->gander == '1' ? asset('assets/img/avatars/cus-male.png') : asset('assets/img/avatars/cus-female.png')) }}" alt="Card image">
+                            <div class="card-img-overlay">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h5 class="card-title length-name-card">{{ $user->name }}</h5>
+                                    </div>
+                                    <div>
+                                        <a href="" wire:click.prevent="ActiveInactiveUserModel({{ $user->id }})"
+                                            data-bs-toggle="modal" data-bs-target="#modalActiveInactiveUser">
+                                            <span
+                                                class="badge rounded-pill bg-{{ $user->flag_active == null ? 'danger' : ($user->flag_active == 'N' ? 'warning' : 'success') }}">
+                                                {{ $user->flag_active == null ? 'NEW' : ($user->flag_active == 'N' ? 'Inactive' : 'Active') }}
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p class="card-text">
+                                    <span class="text-card-user">{{ $user->user_type == 'ADM' ? 'ADMIN' : ($user->user_type == 'KRI' ? 'KURIR' : 'USER' ) }}</span> <br>
+                                    <span class="text-card-user">{{ $user->email }}</span><br>
+                                    <span class="text-card-user">{{ !empty($user->no_phone) ? $user->no_phone : '-' }}</span> <br>
+                                    <span class="text-card-user">{{ empty($user->gander) ? '-' : ($user->gander == '1' ? 'Laki-laki' : 'Perempuan') }}</span>
+                                </p>
+                                <hr style="color: white">
+                                <p class="card-text">
+                                    <span class="text-card-user">Asrama putra, Samuel 1B Nomor. 789</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                @empty
+                    <div class="mt-3">
+                        <h5 class="text-center">Data Tidak Ditemukan!</h5>
+                    </div>
+                @endforelse
+            </div>
+            <div>
+                {{ $usrCard->links() }}
+            </div>
+        </div>
+    </div>
 
     <div wire:ignore.self class="modal fade" id="modalEditUser" tabindex="-1" aria-hidden="true"
         data-bs-backdrop="static">
@@ -119,8 +212,8 @@
                         <div class="nav-align-top mb-4">
                             <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                                 <li class="nav-item">
-                                    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                                        data-bs-target="#navs-pills-justified-home"
+                                    <button type="button" class="nav-link active" role="tab"
+                                        data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home"
                                         aria-controls="navs-pills-justified-home" aria-selected="true">
                                         <i class="tf-icons bx bx-user"></i> Profile
                                     </button>
@@ -141,7 +234,8 @@
                                 </li> --}}
                             </ul>
                             <div class="tab-content">
-                                <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+                                <div class="tab-pane fade show active" id="navs-pills-justified-home"
+                                    role="tabpanel">
                                     <div class="row g-2">
                                         <div class="col-md-6 mb-1">
                                             <label>Header 1:</label>
@@ -233,7 +327,7 @@
                                 </div> --}}
                             </div>
                         </div>
-                    </div>  
+                    </div>
                 </form>
                 <div class="modal-footer">
                     <button wire:click="resetFromAdd()" type="button" class="btn btn-outline-secondary"

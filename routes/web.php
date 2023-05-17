@@ -12,6 +12,7 @@ use App\Http\Livewire\Admin\SliderComponent;
 
 //Client
 use App\Http\Livewire\Client\HomeComponent as DashboardClient;
+use App\Http\Livewire\Client\FormPenitipanComponent;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -28,4 +29,5 @@ Route::middleware(['auth:sanctum', 'adminrole'])->group(function () {
     Route::get('/all-sliders', SliderComponent::class)->name('all-sliders');
 });
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/form-penitipan', FormPenitipanComponent::class)->name('form-penitipan');
 });

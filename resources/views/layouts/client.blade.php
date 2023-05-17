@@ -1,14 +1,13 @@
 @php
-    $url = "";
-        
-      try{
-          $url .= $_SERVER['REQUEST_URI'];
-      }
-      catch(Exception $ex){
-          $error_msg = $ex->getMessage();
-          FunctionsModels::insertLogError("ExceptionGuide", "GetDataCurrentServer", "Exception", $error_msg);
-      }
-      $url = str_replace('/', '', $url);
+    $url = '';
+    
+    try {
+        $url .= $_SERVER['REQUEST_URI'];
+    } catch (Exception $ex) {
+        $error_msg = $ex->getMessage();
+        CommonFunction::insertLogError('ExceptionGuide', 'GetDataCurrentServer', 'Exception', $error_msg);
+    }
+    $url = str_replace('/', '', $url);
 @endphp
 <!DOCTYPE html>
 <html>
@@ -44,7 +43,7 @@
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container ">
                     <a href="{{ route('home') }}">
-                        <img width="250" src="{{ asset('assets/img/icons/AsputBox.svg') }}" alt="AsputBox" />
+                        <img width="220" src="{{ asset('assets/img/icons/AsputBox.svg') }}" alt="AsputBox" />
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -53,8 +52,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav">
-                            <li class="nav-item {{ $url == "" ? "active" : "" }}">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                            <li class="nav-item {{ $url == '' ? 'active' : '' }}">
+                                <a class="nav-link" href="{{ route('home') }}">Home <span
+                                        class="sr-only">(current)</span></a>
                             </li>
                             {{-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button"
@@ -70,7 +70,8 @@
                             </li>
                             @if (!Auth::user())
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}" style="text-decoration: underline">Register's</a>
+                                    <a class="nav-link" href="{{ route('register') }}"
+                                        style="text-decoration: underline">Register's</a>
                                 </li>
                             @endif
                             {{-- <li class="nav-item">
@@ -96,7 +97,13 @@
                             @if (Auth::user())
                                 <li class="nav-item">
                                     <a class="nav-link" href="#" style="padding-left: 0px">
-                                        <i class="fa fa-shopping-cart" aria-hidden="true" style="font-size: 20px"></i>
+                                        <i class='fa fa-shopping-basket' aria-hidden="true" style="font-size: 18px"></i>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="" style="padding-left: 0px">
+                                        <i class='fa fa-user-circle-o' aria-hidden="true" style="font-size: 20px"></i>
+                                        Hi, {{ Auth::user()->name }}
                                     </a>
                                 </li>
                             @endif
@@ -117,7 +124,8 @@
                 <div class="col-md-4">
                     <div class="full">
                         <div class="logo_footer">
-                            <a href="#"><img width="310" src="{{ asset('assets/img/icons/AsputBox.svg') }}" alt="#" /></a>
+                            <a href="#"><img width="310" src="{{ asset('assets/img/icons/AsputBox.svg') }}"
+                                    alt="#" /></a>
                         </div>
                         <div class="information_f">
                             <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>

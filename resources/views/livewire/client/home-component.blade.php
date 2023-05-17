@@ -1,4 +1,6 @@
 <div>
+    <!-- Icons. Uncomment required icon fonts -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
     <style>
         .pickgradient {
             background: rgb(0,0,0);
@@ -123,9 +125,9 @@
                     Why Shop With Us
                 </h2>
             </div> --}}
-            <div class="heading_container heading_center" style="padding-top: 15px">
+            <div class="heading_container heading_center" style="padding-top: 45px">
                 <h3>
-                    Pilih Orderan-mu
+                    Mengapa Harus AsputBox
                 </h3>
             </div>
             <div class="row">
@@ -227,7 +229,7 @@
                                 Fast Delivery
                             </h5>
                             <p>
-                                variations of passages of Lorem Ipsum available
+                                Siap antar dan jemput kapanpun dan dimanapun
                             </p>
                         </div>
                     </div>
@@ -345,7 +347,7 @@
                                 Free Shiping
                             </h5>
                             <p>
-                                variations of passages of Lorem Ipsum available
+                                Geratis biaya pelayanan mengenai asputbox
                             </p>
                         </div>
                     </div>
@@ -370,15 +372,45 @@
                                 Best Quality
                             </h5>
                             <p>
-                                variations of passages of Lorem Ipsum available
+                                Pelayanan terbaik dan perawatan berkualitas
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <h5 style="text-align: center; margin-top: 40px">Tunggu apa lagi? Segera titipkan barang anda di AsputBox.</h5>
+            <div class="btn-box-set1">
+                <a href="{{ route('form-penitipan') }}" style="font-size: 20px">
+                    Pesan Penitipan <i class='bx bxl-dropbox' style="font-size: 35px"></i>
+                </a>
+             </div>
         </div>
     </section>
     <!-- end why section -->
+
+    <!-- subscribe section -->
+    <section class="subscribe_section">
+        <div class="container-fuild">
+           <div class="box">
+              <div class="row">
+                 <div class="col-md-6 offset-md-3">
+                    <div class="subscribe_form">
+                       <div class="heading_container heading_center">
+                          <h3>Temukan Barang Titipan</h3>
+                       </div>
+                       <p>Masukkan kode penitipan untuk menemukan detail penitipan barang.</p>
+                       <form action="">
+                          <input type="text" placeholder="Masukkan kode penitipan">
+                          <button>temukan</button>
+                       </form>
+                    </div>
+                 </div>
+              </div>
+           </div>
+        </div>
+     </section>
+    <!-- end subscribe section -->
+
     <!-- client section -->
     <section class="client_section layout_padding">
         <div class="container">

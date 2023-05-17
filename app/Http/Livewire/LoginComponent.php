@@ -11,6 +11,7 @@ use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
+use App\Providers\RouteServiceProvider;
 
 class LoginComponent extends Component
 {
@@ -50,7 +51,7 @@ class LoginComponent extends Component
                             return redirect()->route('admin-dashboard');
                         }
                         else if($user->user_type === "USR"){
-                            return redirect()->route('home');
+                            return redirect()->intended(RouteServiceProvider::HOME);
                         }
                     }else if($user->flag_active === "N"){
                         session()->flash('msgFlagN', 'Ops... Akun anda telah di Non-aktifkan, Hubungi admin. Terimakasih!');
